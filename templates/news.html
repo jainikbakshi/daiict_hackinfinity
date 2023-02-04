@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{%block body%}
+<style>
+    body{
+        padding: 1%;
+    }
+
+    img{
+        height: 40%;
+        width: 40%;
+    }
+    .newsbox{
+        border: solid black 3px;
+        border-radius: 4px;
+        margin: 2px;
+    }
+
+</style>
+
+<div>
+    <br><br><br>
+    <h2>Today's news</h2>
+    {% for news in cases.articles %}
+    <div class="newsbox">
+        <div>
+            <img src="{{news.urlToImage}}"> 
+        </div>
+        <div>
+            {{news.title}}
+        </div>
+        <div>
+            <p>
+                {{news.description}}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{%endblock body %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: #D6DBB2;">
+    <nav class="navbar navbar-inverse" style="position: fixed; width:100%; top:0">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">Download</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href={{url_for('home')}}>Home</a></li>
+                <li><a href = {{url_for('wishlist')}}>wishlist</a></li>
+                <li><a href={{url_for('news')}}>News</a></li>
+                <li><a href={{url_for('help')}}>Help</a></li>
+                <li><a href={{url_for('creators')}}>Meet us</a></li>
+            </ul>
+            {% if current_user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href={{url_for('logout')}}><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href={{url_for('signup')}}><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href={{url_for('login')}}><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+{%block body%}
+{%endblock body %}
+<div style="position:fixed; left: 0; bottom: 0; width: 100%">
+<footer class="bg-light text-center text-lg-start" style="background-color: black;">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="color: white;">
+      © 2023 Copyright:
+      <a class="text-dark" href="https://nirmauni.ac.in/" style="color: white;">Nirma University</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</div>
+</body>
+<!--
+    
+-->
+</html>
