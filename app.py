@@ -5,6 +5,7 @@ import pandas as pd
 import pandas_datareader as data
 import webbrowser
 from flask_sqlalchemy import SQLAlchemy
+import keras.models
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, DateField
@@ -13,6 +14,12 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import time
+import sys
+import re
+import os
+sys.path.append(os.path.abspath("./model_Volume"))
+from load import *
+
 
 
 app = Flask(__name__)
@@ -74,21 +81,38 @@ def home():
 def dashboard():
     return render_template('dashboard.html', name=current_user.username)
 
-@app.route("/watchlist", methods=["GET","POST"])
+#@app.route("/watchlist", methods=["GET","POST"])
 #@login_required
+#def watchlist():
+#    form = WatchListForm()
+#    if form.validate_on_submit():
+#        stock_ticker = form.stock_ticker.data
+#        start = form.start.data
+#        end = form.start.data
+#        url = "https://finance.yahoo.com/quote/"+ stock_ticker
+#        stocks = pd.read_html(url)
+#        df = stocks[2]
+#        df = df.reset_index(drop=True)
+#        
+#        return render_template("frame.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
+#    return render_template('watchlist.html', form=form)
+
+global graph, model_Volume
+
+model_Volume, graph = init()
+
+@app.route("/watchlist", methods=["GET", "POST"])
 def watchlist():
+    response = "for DL Prediction"
     form = WatchListForm()
-    if form.validate_on_submit():
-        stock_ticker = form.stock_ticker.data
-        start = form.start.data
-        end = form.start.data
-        url = "https://finance.yahoo.com/quote/"+ stock_ticker
-        stocks = pd.read_html(url)
-        df = stocks[2]
-        df = df.reset_index(drop=True)
+    stock_ticker = form.stock_ticker.data
+    #start = form.start.data
+    #end = form.end.data
+
+    with graph.as_default():
+	    out = model_Volume.predict(stock_ticker)
+        #print(out)
         
-        return render_template("frame.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
-    return render_template('watchlist.html', form=form)
 
 @app.route("/news")
 def news():
