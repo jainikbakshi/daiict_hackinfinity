@@ -6,6 +6,7 @@ investment portfolio.
 Work Done:
 
 1. We are using the Flask framework of python inorder to accomodate our idea. We have built the following webpages
+
     1.1 Base.html - the basic template
     1.2 Watchlist.html - the page where the user can see the list of all his stocks (yet to be completed)
     1.3 help.html - this page refers to the FAQ section for a begineer
