@@ -1,9 +1,13 @@
 from flask import Flask, render_template,request, session, redirect, url_for, render_template_string, send_file, flash
 import requests
+import numpy as np
+import pandas as pd
+import pandas_datareader as data
+import webbrowser
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, DateField
 from wtforms.validators import InputRequired, Email, Length 
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -53,6 +57,12 @@ class SignupForm(FlaskForm):
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
     terms = BooleanField('terms')
 
+class WatchListForm(FlaskForm):
+    stock_ticker = StringField('stock_ticker', validators=[InputRequired(), Length(min=3)])
+    start = DateField('start_date', format='%Y-%m-%d')
+    end = DateField('end_date', format='%Y-%m-%d')
+
+
 
 @app.route("/")
 #@login_required
@@ -64,10 +74,21 @@ def home():
 def dashboard():
     return render_template('dashboard.html', name=current_user.username)
 
-@app.route("/watchlist")
-@login_required
+@app.route("/watchlist", methods=["GET","POST"])
+#@login_required
 def watchlist():
-    return render_template('watchlist.html')
+    form = WatchListForm()
+    if form.validate_on_submit():
+        stock_ticker = form.stock_ticker.data
+        start = form.start.data
+        end = form.start.data
+        url = "https://finance.yahoo.com/quote/"+ stock_ticker
+        stocks = pd.read_html(url)
+        df = stocks[1]
+        df = df.reset_index(drop=True)
+        
+        return render_template("frame.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
+    return render_template('watchlist.html', form=form)
 
 @app.route("/news")
 def news():
@@ -94,6 +115,10 @@ def news():
 @app.route("/help")
 def help():
     return render_template('help.html')
+
+@app.route("/frame")
+def frame():
+    return render_template('frame.html')
 
 @app.route("/creators")
 def creators():
