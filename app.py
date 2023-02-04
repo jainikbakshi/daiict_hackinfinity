@@ -1,7 +1,6 @@
 from flask import Flask, render_template,request, session, redirect, url_for, render_template_string, send_file, flash
 import requests
 from flask_sqlalchemy import SQLAlchemy
-from pytube import YouTube, Playlist
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
@@ -9,9 +8,6 @@ from wtforms.validators import InputRequired, Email, Length
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
-from io import BytesIO
-import youtube_dl
-from turtle import down
 import time
 
 
@@ -73,20 +69,6 @@ def dashboard():
 def wishlist():
     return render_template('wishlist.html')
 
-# new changes for the playlist download are made here
-#@app.route("/youtube_playlist", methods= ['GET', 'POST'])
-#def youtube_playlist_download():
-#    if request.method == "POST":
-#        downloaded = False
-#        url = request.form.get('youtube_playlist_download')
-#        playl = Playlist(url)
-#        for videos in playl.videos:
-#            videos.streams.first().download()
-#        downloaded = True
-    # flash('Playlist ' + playl.title + ' downloaded successfully!')
-    # return render_template('index.html', py = playl, d_check = downloaded )
-#    return render_template('playlist.html', py = playl)
-
 @app.route("/news")
 def news():
     url = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=80b9296f0fc04925802ef77f48e124f7"
@@ -108,116 +90,6 @@ def news():
     }
     return render_template('news.html', cases = case)
     
-
-# @app.route("/youtube/playlist", methods = ['GET','POST'])
-# def youtube_playlist_download():
-    # if request.method == "POST":
-    #     link = request.form.get('youtube_playlist_download')
-    #     playlist = Playlist(link)
-    #     for video in playlist.videos:
-    #         video.streams.first().download()
-    # return redirect(url_for('youtube'))
-    # if request.method == "POST":
-    #     buffer = BytesIO()
-    #     link = request.form.get('youtube_playlist_download')
-    #     playlist = Playlist(link)
-    #     # url = YouTube(session['link'])
-    #     # itag = request.form.get('itag')
-    #     # video = url.streams.get_by_itag(itag)
-    #     for video in playlist.videos:
-    #         # video.stream_to_buffer(buffer)
-    #         buffer.seek(0)
-    #         return send_file(buffer, as_attachment=True, download_name=(link.title+'.mp4'))
-    # return redirect(url_for('base'))
-        
-
-#@app.route("/youtube" , methods = ['GET', 'POST'])
-#def youtube():
-    #this portion of code check the validity of the youtube link 
-#    if request.method == 'POST':
-#        session['link'] = request.form.get('youtube_link')
-#        try:
-#            check_link = YouTube(session['link'])
-#            check_link.check_availability()
-#        except:
-#            return render_template('errorPage.html')
-#        return render_template('youtube_download.html', url = check_link) #ye line me we passed url so that we could use it in the youtube_download wali
-#    return render_template('youtube.html')
-
-#@app.route("/youtube/download" , methods = ["GET", "POST"])
-#def youtube_video_download():
-#    if request.method == "POST":
-#        buffer = BytesIO()
-#        url = YouTube(session['link'])
-#        itag2 = request.form.get('itag')
-        # video = url.streams.get_by_itag(18)
-#        video = url.streams.get_by_itag(itag2)
-#        video.stream_to_buffer(buffer)
-#        buffer.seek(0)
-#        return send_file(buffer, as_attachment=True, download_name=(url.title+'.mp4'))
-#    return redirect(url_for('base'))
-
-#@app.route("/youtube/downloadmp3" , methods = ["GET", "POST"])
-#def youtube_mp3_download():
-#    if request.method == "POST":
-#        buffer = BytesIO()
-#        url = YouTube(session['link'])
-#        audio = url.streams.filter(only_audio=True).first()
-#        audio.stream_to_buffer(buffer)
-#        buffer.seek(0)
-#       return send_file(buffer, as_attachment=True, download_name=(url.title+'.mp3'))
-#    return redirect(url_for('base'))
-
-
-#@app.route("/instagram") 
-#def instagram():
-#    return render_template('instagram.html')
-
-#@app.route("/facebook")
-#def facebook():
-#    return render_template('facebook.html')
-
-# @app.route("/facebook/download" , methods = ["GET", "POST"])
-# def facebook_video_download():
-#     # link = request.form['facebook_link']
-#     # itag = int(999)
-#     # with youtube_dl.YoutubeDL() as ydl:
-#     #     url = ydl.extract_info(link, download=False)
-#     #     downloadLink = (url["formats"][itag]["url"])
-#     # return redirect(downloadLink+"&dl=1")
-#     url = request.form.get('facebook_link')
-#     with youtube_dl.YoutubeDL() as ydl:
-#         link = ydl.extract_info(url, download=False)
-#         try:
-#             download_link = link["entries"][-1]["formats"][-1]["facebook_link"]
-#         except: 
-#             download_link = link["formats"][-1]["facebook_link"]
-#         return redirect(download_link+"&dl=1")
-#@app.route('/facebook/download', methods=["POST", "GET"])
-#def facebook_download():
-#	url = request.form["url"]
-# 	print("Someone just tried to download", url)
-#	with youtube_dl.YoutubeDL() as ydl:
-#		link = ydl.extract_info(url, download=False)
-# 		print(url)
-#		try:
-#			download_link = link["entries"][-1]["formats"][-1]["url"]
-#		except:
-#			download_link = link["formats"][-1]["url"]
-#		return redirect(download_link+"&dl=1")
-    
-
-#@app.route("/result")
-#def home1():
-    # if request.method == 'POST':
-    #     session['link'] = request.form.get('url')
-    #     try:
-    #         url = YouTube(session['link'])
-    #         url.check_availability() 
-    #     except:
-    #         return render_template('error.html')
-    #     return render_template('Download.html')
-    # return render_template('index.html')
 
 @app.route("/help")
 def help():
