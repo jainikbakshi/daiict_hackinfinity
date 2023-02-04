@@ -24,7 +24,7 @@
     }
 </style>
 {%block body%}
-<body style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+<body style="background-color:honeydew;">
     <br><br><br><br>
         <section class="vh-100 bg-image" style="margin-left: 25%;">
             <div class="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -33,9 +33,9 @@
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="card" style="border-radius: 15px;">
                                 <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-5">Log into your account</h2>
+                                    <h2 class="text-uppercase text-center mb-5"><b>Log into your account</h2></b><br><br>
     
-                                    <form method="POST" action="/login">
+                                    <form method="POST" action="/login" class="text-uppercase" >
                                         {{ form.hidden_tag() }}
                                         {{ wtf.form_field(form.username) }}
                                         {{ wtf.form_field(form.password) }}
@@ -50,12 +50,12 @@
                                                 class="form-control form-control-lg" />
                                             <label class="form-label" for="form3Example4cg">Password</label>
                                         </div>
-                                    -->
+                                    --><br><br>
                                         <div class="d-flex justify-content-center">
                                             <button type="submit"
-                                                class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
+                                                class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"><b>Login</b></button>
                                         </div>
-    
+    <br>
                                         <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="{{url_for('signup')}}"
                                                 class="fw-bold text-body"><u>signup here</u></a></p>
     
@@ -68,7 +68,6 @@
                 </div>
             </div>
         </section>
-</body>
-    
+        </body>
 
 {%endblock body %}
