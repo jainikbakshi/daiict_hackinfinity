@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, session, redirect, url_for, render_template_string, send_file, flash
+from flask import Flask, render_template,request, session, redirect, url_for, render_template_string, send_file, flash, jsonify
 import requests
 import numpy as np
 import pandas as pd
@@ -14,11 +14,8 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import time
-import sys
-import re
-import os
-sys.path.append(os.path.abspath("./model_Volume"))
-from load import *
+import yfinance as yf
+import jsonpickle
 
 
 
@@ -97,22 +94,33 @@ def dashboard():
 #        return render_template("frame.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
 #    return render_template('watchlist.html', form=form)
 
-global graph, model_Volume
 
-model_Volume, graph = init()
+@app.route("/quote")
+@login_required
+def display_quote():
+    symbol = request.args.get('symbol', default='AAPL')
+    quote = yf.Ticker(symbol)
+    return jsonpickle.encode(quote.info)
 
-@app.route("/watchlist", methods=["GET", "POST"])
-def watchlist():
-    response = "for DL Prediction"
-    form = WatchListForm()
-    stock_ticker = form.stock_ticker.data
-    #start = form.start.data
-    #end = form.end.data
+@app.route("/history")
+def display_history():
 
-    with graph.as_default():
-	    out = model_Volume.predict(stock_ticker)
-        #print(out)
-        
+    symbol = request.args.get('symbol', default="AAPL")
+    period = request.args.get('period', default="1y")
+    interval = request.args.get('interval', default="1mo")        
+    quote = yf.Ticker(symbol)   
+    hist = quote.history(period=period, interval=interval)
+    data = hist.to_json()
+    return data
+
+#@app.route("/watchlist")
+#def watchlist():
+#    return render_template('watchlist.html')
+
+@app.route("/frame")
+def frame():
+    return render_template('frame.html')
+
 
 @app.route("/news")
 def news():
@@ -139,10 +147,6 @@ def news():
 @app.route("/help")
 def help():
     return render_template('help.html')
-
-@app.route("/frame")
-def frame():
-    return render_template('frame.html')
 
 @app.route("/creators")
 def creators():

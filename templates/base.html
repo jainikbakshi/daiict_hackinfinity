@@ -24,7 +24,7 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href={{url_for('home')}}>Home</a></li>
-                <li><a href = {{url_for('watchlist')}}>Watchlist</a></li>
+                <li><a href = {{url_for('frame')}}>Watchlist</a></li>
                 <li><a href={{url_for('news')}}>News</a></li>
                 <li><a href={{url_for('help')}}>FAQ</a></li>
                 <li><a href={{url_for('creators')}}>Meet us</a></li>
@@ -32,6 +32,7 @@
             {% if current_user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right">
                 <li><a href={{url_for('logout')}}><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                <li><a href={{url_for('dashboard')}}>Dashboard</a></li>
             </ul>
             {% else %}
             <ul class="nav navbar-nav navbar-right">

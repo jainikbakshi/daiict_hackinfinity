@@ -18,23 +18,27 @@
 
 </style>
 
-<div>
+<div style="background-color:rgb(116, 181, 119);">
     <br><br><br>
-    <h2>Today's news</h2>
+    <div class="text-center" style="font-size:40px"><b><u>Today's news</b></u></div><br>
     {% for news in cases.articles %}
-    <div class="newsbox">
-        <div>
-            <img src="{{news.urlToImage}}"> 
-        </div>
-        <div>
-            {{news.title}}
-        </div>
-        <div>
-            <p>
-                {{news.description}}
-            </p>
+    <div class="container">
+        <div class="row">
+            <div class="newsbox" style="background-color:  honeydew;"><br>
+                <div>
+                    <img src="{{news.urlToImage}}" class="center" style="display: block;margin-left: auto;margin-right: auto; height: 50%;width: 40%;"> 
+                </div>
+                <br>
+                <div style="font-size:20px;padding-left: 20px;"><b><u>
+                    {{news.title}}
+                </div></b></u>
+                 <div style="font-size:17px;padding-left: 20px;">
+                    <p>{{news.description}}</p>
+                </div>
+            </div>
         </div>
     </div>
+    <br>
     {% endfor %}
 </div>
 
