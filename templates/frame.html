@@ -8,13 +8,15 @@
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="card" style="border-radius: 15px;">
-                                <div class="card-body p-5 " style="margin: 20%;">
-                                    <h2 class="text-uppercase text-center mb-5" style="padding-bottom: 5%;">WatchList</h2>
+                                <div class="card-body p-5 " style="margin: 10%;">
+                                    <h2 class="text-uppercase text-center mb-5" style="padding-bottom: 15%;">WatchList</h2>
+                                    <h3 class="text-uppercase text-center mb-5" style="padding-bottom: 5%;"> Top Trending stocks</h3>
+                                    <div style="margin-left: 15%;">
                                     {% for table in tables %}
                                     {{titles[ loop.index ]}}
                                     {{ table|safe }}
                                     {% endfor %}
-    
+                                    </div>
                                 </div>
                             </div>
                         </div>

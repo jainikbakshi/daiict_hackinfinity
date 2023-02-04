@@ -84,7 +84,7 @@ def watchlist():
         end = form.start.data
         url = "https://finance.yahoo.com/quote/"+ stock_ticker
         stocks = pd.read_html(url)
-        df = stocks[1]
+        df = stocks[2]
         df = df.reset_index(drop=True)
         
         return render_template("frame.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
