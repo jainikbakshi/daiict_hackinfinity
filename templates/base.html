@@ -16,13 +16,13 @@
     <nav class="navbar navbar-inverse" style="position: fixed; width:100%; top:0">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="">Download</a>
+                <a class="navbar-brand" href="">CoinDrop</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href={{url_for('home')}}>Home</a></li>
-                <li><a href = {{url_for('wishlist')}}>wishlist</a></li>
+                <li><a href = {{url_for('watchlist')}}>Watchlist</a></li>
                 <li><a href={{url_for('news')}}>News</a></li>
-                <li><a href={{url_for('help')}}>Help</a></li>
+                <li><a href={{url_for('help')}}>FAQ</a></li>
                 <li><a href={{url_for('creators')}}>Meet us</a></li>
             </ul>
             {% if current_user.is_authenticated %}

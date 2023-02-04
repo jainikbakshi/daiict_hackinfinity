@@ -64,10 +64,10 @@ def home():
 def dashboard():
     return render_template('dashboard.html', name=current_user.username)
 
-@app.route("/wishlist")
+@app.route("/watchlist")
 @login_required
-def wishlist():
-    return render_template('wishlist.html')
+def watchlist():
+    return render_template('watchlist.html')
 
 @app.route("/news")
 def news():
