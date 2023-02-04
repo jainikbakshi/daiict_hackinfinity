@@ -1,5 +1,6 @@
 # daiict_hackinfinity
 Our Domain: FINTECH
+
 Our Topic:  Build a website or app that can help users create and manage a personalized
 investment portfolio.
 
