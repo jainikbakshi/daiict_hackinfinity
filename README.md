@@ -4,9 +4,8 @@ Our Domain: FINTECH
 Our Topic:  Build a website or app that can help users create and manage a personalized
 investment portfolio.
 
-Work Done:
 
-1. We are using the Flask framework of python inorder to accomodate our idea. We have built the following webpages
+1. We have used the Flask framework of python inorder to accomodate our idea. We have built the following webpages
 
     1.1 Base.html - the basic template
     
@@ -20,10 +19,9 @@ Work Done:
     
     
 2. Login and Signup webpages are built using different kinds of validators, which stores the sensitive data of user in an encrypted form
-   and uses sqlite for the same
+   and uses sqlite database for storing the records.
+   
+3. Next we have made dynamic and interavtive dashboard using Power BI. In the dashboard we have both stock as well as cryptocurrency portflio. It is analysed based on various factors and figures. This dasboard is present beside the logout feature. 
   
 
-Future Work:
 
-1. We plan to make an interactive dashboard which will give the user state of the art features, like investment analysis, shares, etc.
-2. The webpages would be made more interactive using CSS and JavaScript
